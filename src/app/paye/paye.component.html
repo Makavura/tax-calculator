@@ -1,0 +1,45 @@
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    Tax Calculator
+  </a>
+
+  <h2>
+    {{this.name}}
+  </h2>
+</nav>
+
+<div class="container">
+  <div class="card">
+      <form  #payeForm='ngForm' (ngSubmit)="onSubmit(model)">
+        <div class="form-group">
+          <label>Employee Name</label>
+          <input type="text" name="name" [(ngModel)]="model.name" #name = "ngModel" class="form-control" placeholder="Enter full name">
+        </div>
+        <div class="form-group">
+          <label>Basic Salary</label>
+          <input type="number" name="basic_salary" [(ngModel)]="model.basic_salary" #basic_salary = "ngModel" class="form-control" placeholder="Enter Basic Salary">
+        </div>
+        <div class="form-group">
+          <label>Benefits</label>
+          <input type="number" name="benefits" [(ngModel)]="model.benefits" #benefits = "ngModel" class="form-control" placeholder="Enter Benefits">
+        </div>
+        <button class="btn btn-primary" type="submit">
+          Compute
+        </button> 
+      </form>
+
+     <hr>
+
+      <div>
+        <h5>Deductible NSSF Contribution: {{pensionDeduction}}</h5>
+        <h5>Income After Pension Deduction: {{postPensionDeductionIncome}}</h5>
+        <h5>Benefits in kind: {{benefits}}</h5>
+        <h5>Taxable Income: {{taxableIncome}}</h5>
+        <h5>Tax Deduction : {{taxDeduction}}</h5>
+        <h5>Personal Relief: {{personalRelief}}</h5>
+        <h5>Tax Payable: {{taxPayable}}</h5>
+        <h5>NHIF Contribution: {{NHIF}}</h5>
+        <h5>Carry Home Pay: {{carryHomePay}}</h5>
+      </div>
+  </div>
+</div>
