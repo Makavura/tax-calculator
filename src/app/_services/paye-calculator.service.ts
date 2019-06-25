@@ -10,7 +10,6 @@ export class PayeCalculatorService {
   benefits: number;
   pensionDeduction: number;
   postPensionDeductionIncome: number;
-  // taxableIncome: number;
   taxDeduction: number;
   taxPayable: number;
   NHIF: number;
@@ -32,7 +31,7 @@ export class PayeCalculatorService {
         employeeDeductionII = 0.06 * (this.basicSalary - 6000);
         this.pensionDeduction = employeeDeductionI + employeeDeductionII;
         return this.pensionDeduction;
-    } else if (this.basicSalary > 6000 && this.basicSalary <= 18000){
+    } else if (this.basicSalary > 6000 && this.basicSalary <= 18000) {
         employeeDeductionI = 0.06 * 6000;
         employeeDeductionII = 0.06 * (this.basicSalary - 6000);
         this.pensionDeduction = employeeDeductionI + employeeDeductionII;
@@ -50,10 +49,6 @@ export class PayeCalculatorService {
        return this.postPensionDeductionIncome;
    }
 
-  //  calculatetaxableIncome() {
-  //   this.taxableIncome = this.benefits + this.postPensionDeductionIncome;
-  //   return this.taxableIncome;
-  // }
    calculateTaxableIncome() {
        this.taxableIncome = this.postPensionDeductionIncome + this.benefits;
        return this.taxableIncome;
@@ -62,33 +57,46 @@ export class PayeCalculatorService {
 
 
    calculateTaxDeduction() {
-
-        if (this.taxableIncome <= 12298) {
-          this.taxRate = 0.1;
-          this.taxDeduction = this.taxableIncome * this.taxRate;
-          return this.taxDeduction;
-       } else if (this.taxableIncome >= 12298 && this.taxableIncome <= 23885) {
-          this.taxRate = 0.15;
-          this.taxDeduction = this.taxableIncome * this.taxRate;
-          return this.taxDeduction;
-       } else if (this.taxableIncome >= 23886 && this.taxableIncome <= 35472) {
-          this.taxRate = 0.20;
-          this.taxDeduction = this.taxableIncome * this.taxRate;
-          return this.taxDeduction;
-       }  else if (this.taxableIncome >= 35473 && this.taxableIncome <= 47059) {
-          this.taxRate = 0.25;
-          this.taxDeduction = this.taxableIncome * this.taxRate;
-          return this.taxDeduction;
-       } else {
-          this.taxRate = 0.30;
-          this.taxDeduction = this.taxableIncome * this.taxRate;
-          return this.taxDeduction;
-       }
+        if (this.taxableIncome <=  12298) {
+            this.taxRate = 0.10;
+            this.taxDeduction = this.taxableIncome * this.taxRate;
+            return this.taxDeduction;
+        } else if (this.taxableIncome >= 12299 && this.taxableIncome <= 23885 ) {
+            this.taxRate = 0.15;
+            let x = 12298;
+            let y = this.taxableIncome - 12299;
+            this.taxDeduction = ((x * 0.10) + (y * this.taxRate));
+            return this.taxDeduction;
+        } else if (this.taxableIncome >= 23886 && this.taxableIncome <= 35472 ) {
+            this.taxRate = 0.20;
+            let x = 12998;
+            let y = 23885 - 12299;
+            let z  = this.taxableIncome - 23886;
+            this.taxDeduction = ((x * 0.10) + (y * 0.15) + (z * 0.20));
+            return this.taxDeduction;
+        } else if (this.taxableIncome >= 35473 && this.taxableIncome <= 47059 ) {
+            this.taxRate = 0.25;
+            let w = 12298;
+            let x = 23885 - 12299;
+            let y = 35472 - 23886;
+            let z = this.taxableIncome - 35473;
+            this.taxDeduction = (w * 0.10) + (x * 0.15) + (y * 0.20) + (z * 0.25);
+            return this.taxDeduction;
+        } else {
+            this.taxRate = 0.30;
+            let v = 12298;
+            let w = 23885 - 12299;
+            let x = 35472 - 23885;
+            let y = 47059 - 35473;
+            let z = this.taxableIncome - 47059;
+            this.taxDeduction = ((v * 0.10) + (w * 0.15) + (x * 0.20) + (y * 0.25) + (z * 0.30));
+            return this.taxDeduction;
+        }
    }
 
   calculateTaxPayable() {
 
-      if (this.taxDeduction < this.personalRelief){
+      if (this.taxDeduction < this.personalRelief) {
           this.taxPayable = this.taxDeduction;
           return this.taxPayable;
       } else {
@@ -96,9 +104,6 @@ export class PayeCalculatorService {
        return this.taxPayable;
       }
    }
-
-  // calculatePaye() {
-  // }
 
    calculateNHIF() {
        if (this.taxableIncome <= 5999) {
@@ -117,7 +122,7 @@ export class PayeCalculatorService {
           this.NHIF = 600;
           return this.NHIF;
       } else if (this.taxableIncome >= 20000 && this.taxableIncome <= 24999) {
-          this.NHIF = 700;
+          this.NHIF = 750;
           return this.NHIF;
       } else if (this.taxableIncome >= 25000 && this.taxableIncome <= 29999) {
           this.NHIF = 850;

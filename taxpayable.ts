@@ -16,8 +16,8 @@ class PayTax {
             this.taxRate = 0.15;
             var x = 12298;
             var y = this.taxableIncome - 12299
-            this.taxPayable = ((x * 0.10) + (y * this.taxRate))
-            return this.taxPayable 
+            this.taxPayable = ((x * 0.10) + (y * this.taxRate));
+            return this.taxPayable;
         } else if (this.taxableIncome >= 23886 && this.taxableIncome <= 35472 ) {
             this.taxRate = 0.20;
             var x = 12998;
@@ -32,9 +32,9 @@ class PayTax {
             var y = 35472 - 23886;
             var z = this.taxableIncome - 35473;
             this.taxPayable = (w * 0.10) + (x * 0.15) + (y * 0.20) + (z * 0.25);
-            return this.taxPayable; 
+            return this.taxPayable;
         } else {
-            this.taxRate - 0.30;
+            this.taxRate = 0.30;
             var v = 12298;
             var w = 23885 - 12299;
             var x = 35472 - 23885;

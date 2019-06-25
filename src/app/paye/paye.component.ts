@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute } from '@angular/router';
 import { PayeCalculatorService } from '../_services/paye-calculator.service';
-import {NgForm} from '@angular/forms'
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-paye',
@@ -11,9 +11,9 @@ import {NgForm} from '@angular/forms'
 export class PayeComponent implements OnInit {
 
   model: any = {};
-  name: string;
+  userName: string;
   basicSalary = 0;
-  benefits = 0;
+  empBenefits = 0;
   employeeDeductionI: number;
   employeeDeductionII: number;
   pensionDeduction: number;
@@ -33,10 +33,10 @@ export class PayeComponent implements OnInit {
   }
 
   onSubmit() {
-    this.name = this.model.name;
+    this.userName = this.model.name;
     this.basicSalary = this.model.basic_salary;
-    this.benefits = this.model.basic_salary;
-    this.pensionDeduction = this.payeService.calculateNSSFDeductible(this.basicSalary, this.benefits);
+    this.empBenefits = this.model.benefits;
+    this.pensionDeduction = this.payeService.calculateNSSFDeductible(this.basicSalary, this.empBenefits);
     this.postPensionDeductionIncome = this.payeService.calculatePostPensionDeductionIncome();
     this.personalRelief = this.payeService.personalRelief;
     this.taxableIncome = this.payeService.calculateTaxableIncome();
